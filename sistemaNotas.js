@@ -37,50 +37,19 @@ class SistemaNotas {
   }
 
   cadastrarAluno(nome, notas, nomeTurma) {
-    const turma = this.buscarTurma(nomeTurma);
-    const aluno = new Aluno(nome, notas, nomeTurma);
-
-    turma.adicionarAluno(aluno);
-    return aluno;
+    return null;
   }
 
   listarAlunos() {
-    const alunos = [];
-
-    for (const turma of this.turmas) {
-      alunos.push(...turma.alunos);
-    }
-
-    return alunos;
+    return [];
   }
 
   analisarTurma(nomeTurma) {
-    return this.buscarTurma(nomeTurma).alunos;
+    return [];
   }
 
   gerarRelatorioAnalitico() {
-    const alunos = this.listarAlunos();
-    let maiorAluno = alunos[0];
-    let menorAluno = alunos[0];
-
-    for (const aluno of alunos) {
-      if (aluno.calcularMedia() > maiorAluno.calcularMedia()) {
-        maiorAluno = aluno;
-      }
-
-      if (aluno.calcularMedia() < menorAluno.calcularMedia()) {
-        menorAluno = aluno;
-      }
-    }
-
-    return {
-      maiorAluno,
-      menorAluno,
-      turmas: this.turmas.map((turma) => ({
-        turma,
-        estatisticas: turma.obterEstatisticas(),
-      })),
-    };
+    return null;
   }
 }
 
