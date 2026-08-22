@@ -6,7 +6,13 @@ class Aluno {
   }
 
   calcularMedia() {
-    return 0;
+    let soma = 0;
+
+    for (const nota of this.notas) {
+      soma += nota;
+    }
+
+    return soma / this.notas.length;
   }
 
   obterSituacao() {
