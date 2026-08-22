@@ -33,24 +33,61 @@ class SistemaNotas {
   }
 
   buscarTurma(nomeTurma) {
-    return null;
+    for (const turma of this.turmas) {
+      if (turma.nome === nomeTurma) return turma;
+    }
   }
 
   cadastrarAluno(nome, notas, nomeTurma) {
-    return null;
+    const turma = this.buscarTurma(nomeTurma);
+    const aluno = new Aluno(nome, notas, nomeTurma);
+    turma.adicionarAluno(aluno);
+    return aluno;
   }
 
   listarAlunos() {
-    return [];
+    const alunos = [];
+    for (let i = 0; i < this.turmas.length; i++) {
+      for (let j = 0; j < this.turmas[i].alunos.length; j++) {
+        alunos.push(this.turmas[i].alunos[j]);
+      }
+    }
+    return alunos;
   }
 
   analisarTurma(nomeTurma) {
-    return [];
+    const turma = this.buscarTurma(nomeTurma);
+    return turma.alunos;
   }
 
   gerarRelatorioAnalitico() {
-    return null;
+    const alunos = this.listarAlunos();
+    let maiorAluno = alunos[0];
+    let menorAluno = alunos[0];
+
+    for (let i = 0; i < alunos.length; i++) {
+      if (alunos[i].calcularMedia() > maiorAluno.calcularMedia()) {
+        maiorAluno = alunos[i];
+      }
+      if (alunos[i].calcularMedia() < menorAluno.calcularMedia()) {
+        menorAluno = alunos[i];
+      }
+    }
+
+    const relatorioTurmas = [];
+    for (const turma of this.turmas) {
+      relatorioTurmas.push({
+        turma: turma,
+        estatisticas: turma.obterEstatisticas(),
+      });
+    }
+
+    return {
+      maiorAluno,
+      menorAluno,
+      turmas: relatorioTurmas,
+    };
   }
 }
 
-export default SistemaNotas;
+export default SistemaNotas;
