@@ -33,59 +33,43 @@ class SistemaNotas {
   }
 
   buscarTurma(nomeTurma) {
-    for (const turma of this.turmas) {
-      if (turma.nome === nomeTurma) return turma;
-    }
+    return this.turmas.find((turma) => turma.nome === nomeTurma);
   }
 
   cadastrarAluno(nome, notas, nomeTurma) {
     const turma = this.buscarTurma(nomeTurma);
     const aluno = new Aluno(nome, notas, nomeTurma);
+
     turma.adicionarAluno(aluno);
     return aluno;
   }
 
   listarAlunos() {
-    const alunos = [];
-    for (let i = 0; i < this.turmas.length; i++) {
-      for (let j = 0; j < this.turmas[i].alunos.length; j++) {
-        alunos.push(this.turmas[i].alunos[j]);
-      }
-    }
-    return alunos;
+    return this.turmas.flatMap((turma) => turma.alunos);
   }
 
   analisarTurma(nomeTurma) {
-    const turma = this.buscarTurma(nomeTurma);
-    return turma.alunos;
+    return this.buscarTurma(nomeTurma)?.alunos ?? [];
   }
 
   gerarRelatorioAnalitico() {
     const alunos = this.listarAlunos();
-    let maiorAluno = alunos[0];
-    let menorAluno = alunos[0];
 
-    for (let i = 0; i < alunos.length; i++) {
-      if (alunos[i].calcularMedia() > maiorAluno.calcularMedia()) {
-        maiorAluno = alunos[i];
-      }
-      if (alunos[i].calcularMedia() < menorAluno.calcularMedia()) {
-        menorAluno = alunos[i];
-      }
-    }
+    const maiorAluno = alunos.reduce((maior, atual) =>
+      atual.calcularMedia() > maior.calcularMedia() ? atual : maior, alunos[0]
+    );
 
-    const relatorioTurmas = [];
-    for (const turma of this.turmas) {
-      relatorioTurmas.push({
-        turma: turma,
-        estatisticas: turma.obterEstatisticas(),
-      });
-    }
+    const menorAluno = alunos.reduce((menor, atual) =>
+      atual.calcularMedia() < menor.calcularMedia() ? atual : menor, alunos[0]
+    );
 
     return {
       maiorAluno,
       menorAluno,
-      turmas: relatorioTurmas,
+      turmas: this.turmas.map((turma) => ({
+        turma,
+        estatisticas: turma.obterEstatisticas(),
+      })),
     };
   }
 }
