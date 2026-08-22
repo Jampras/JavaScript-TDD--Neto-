@@ -13,4 +13,9 @@ describe('Aluno', () => {
     expect(resultado).toBe(7);
   });
 
+  test('aluno aprovado', () => {
+  const resultado = aluno.obterSituacao();
+  expect(resultado).toBe('Aprovado');
+});
+
 });

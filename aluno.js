@@ -12,11 +12,7 @@ class Aluno {
   }
 
   obterSituacao() {
-    if (this.calcularMedia() >= 7.0) {
-      return "Aprovado";
-    }
-
-    return "Reprovado";
+    return "";
   }
 }
 
