@@ -6,13 +6,7 @@ class Aluno {
   }
 
   calcularMedia() {
-    let soma = 0;
-
-    for (const nota of this.notas) {
-      soma += nota;
-    }
-
-    return soma / this.notas.length;
+    return 0;
   }
 
   obterSituacao() {
@@ -24,4 +18,4 @@ class Aluno {
   }
 }
 
-module.exports = Aluno;
+export default Aluno;
