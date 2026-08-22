@@ -33,7 +33,7 @@ class SistemaNotas {
   }
 
   buscarTurma(nomeTurma) {
-    return this.turmas.find((turma) => turma.nome === nomeTurma);
+    return null;
   }
 
   cadastrarAluno(nome, notas, nomeTurma) {
