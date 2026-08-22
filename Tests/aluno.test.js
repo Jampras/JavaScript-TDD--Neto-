@@ -16,6 +16,12 @@ describe('Aluno', () => {
   test('aluno aprovado', () => {
   const resultado = aluno.obterSituacao();
   expect(resultado).toBe('Aprovado');
-});
+  });
+
+  test('aluno reprovado', () => {
+  aluno = new Aluno('Pedro', [5, 6, 4], 'Mouratech Fullstack');
+  const resultado = aluno.obterSituacao();
+  expect(resultado).toBe('Reprovado');
+  });
 
 });
