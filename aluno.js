@@ -6,11 +6,7 @@ class Aluno {
   }
 
   calcularMedia() {
-    let soma = 0;
-
-    for (const nota of this.notas) {
-      soma += nota;
-    }
+    const soma = this.notas.reduce((total, nota) => total + nota, 0);
 
     return soma / this.notas.length;
   }

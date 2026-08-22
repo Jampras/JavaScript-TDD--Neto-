@@ -1,7 +1,8 @@
-const readline = require("node:readline/promises");
-const { stdin, stdout } = require("node:process");
+import * as readline from "node:readline/promises";
+import { argv, stdin, stdout } from "node:process";
+import { pathToFileURL } from "node:url";
 
-const SistemaNotas = require("./sistemaNotas");
+import SistemaNotas from "./sistemaNotas.js";
 
 class AplicacaoTerminal {
   constructor(sistema = new SistemaNotas(), rl = null) {
@@ -155,9 +156,12 @@ class AplicacaoTerminal {
   }
 }
 
-if (require.main === module) {
+const executadoDiretamente =
+  argv[1] && import.meta.url === pathToFileURL(argv[1]).href;
+
+if (executadoDiretamente) {
   const aplicacao = new AplicacaoTerminal();
   aplicacao.executar();
 }
 
-module.exports = AplicacaoTerminal;
+export default AplicacaoTerminal;
