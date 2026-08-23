@@ -11,6 +11,16 @@ class Turma {
     this.alunos.push(aluno);
     return aluno;
   }
+
+  calcularMediaGeral() {
+    let somaMedias = 0;
+
+    for (const aluno of this.alunos) {
+      somaMedias += aluno.calcularMedia();
+    }
+
+    return somaMedias / this.alunos.length;
+  }
 }
 
 export default Turma;
