@@ -13,12 +13,9 @@ class Turma {
   }
 
   calcularMediaGeral() {
-    let somaMedias = 0;
+    if (this.alunos.length === 0) return 0;
 
-    for (const aluno of this.alunos) {
-      somaMedias += aluno.calcularMedia();
-    }
-
+    const somaMedias = this.alunos.reduce((soma, aluno) => soma + aluno.calcularMedia(), 0);
     return somaMedias / this.alunos.length;
   }
 }
