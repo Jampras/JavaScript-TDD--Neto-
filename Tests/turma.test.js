@@ -18,4 +18,18 @@ describe("Classe Turma", () => {
 
     expect(turma.calcularMediaGeral()).toBe(7);
   });
+
+  test("deve retornar as estatísticas corretas da turma", () => {
+    const turma = new Turma("Mouratech Fullstack");
+    turma.adicionarAluno({ calcularMedia: () => 8, obterSituacao: () => "Aprovado" });
+    turma.adicionarAluno({ calcularMedia: () => 4, obterSituacao: () => "Reprovado" });
+
+    const estatisticas = turma.obterEstatisticas();
+
+    expect(estatisticas).toEqual({
+      mediaGeral: 6,
+      aprovados: 1,
+      reprovados: 1,
+    });
+  });
 });
