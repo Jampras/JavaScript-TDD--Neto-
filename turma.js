@@ -5,6 +5,9 @@ class Turma {
   }
 
   adicionarAluno(aluno) {
+    if (!aluno) {
+      throw new Error("Aluno inválido");
+    }
     this.alunos.push(aluno);
     return aluno;
   }
