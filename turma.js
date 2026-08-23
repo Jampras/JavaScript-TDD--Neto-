@@ -20,16 +20,8 @@ class Turma {
   }
 
   obterEstatisticas() {
-    let aprovados = 0;
-    let reprovados = 0;
-
-    for (const aluno of this.alunos) {
-      if (aluno.obterSituacao() === "Aprovado") {
-        aprovados++;
-      } else {
-        reprovados++;
-      }
-    }
+    const aprovados = this.alunos.filter(aluno => aluno.obterSituacao() === "Aprovado").length;
+    const reprovados = this.alunos.filter(aluno => aluno.obterSituacao() === "Reprovado").length;
 
     return {
       mediaGeral: this.calcularMediaGeral(),
