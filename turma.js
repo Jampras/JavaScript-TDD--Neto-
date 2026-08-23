@@ -18,6 +18,25 @@ class Turma {
     const somaMedias = this.alunos.reduce((soma, aluno) => soma + aluno.calcularMedia(), 0);
     return somaMedias / this.alunos.length;
   }
+
+  obterEstatisticas() {
+    let aprovados = 0;
+    let reprovados = 0;
+
+    for (const aluno of this.alunos) {
+      if (aluno.obterSituacao() === "Aprovado") {
+        aprovados++;
+      } else {
+        reprovados++;
+      }
+    }
+
+    return {
+      mediaGeral: this.calcularMediaGeral(),
+      aprovados,
+      reprovados,
+    };
+  }
 }
 
 export default Turma;
