@@ -3,6 +3,7 @@ import { argv, stdin, stdout } from "node:process";
 import { pathToFileURL } from "node:url";
 
 import SistemaNotas from "./sistemaNotas.js";
+import { buscarAluno } from "./apiAlunos.js";
 
 class AplicacaoTerminal {
   constructor(sistema = new SistemaNotas(), rl = null) {
@@ -123,6 +124,24 @@ class AplicacaoTerminal {
     }
   }
 
+  consultarAluno() {
+    return this.rl
+      .question("Digite o ID do aluno: ")
+      .then((id) => buscarAluno(id))
+      .then((aluno) => {
+        console.log("");
+        console.log("Aluno encontrado:");
+        console.log(`ID: ${aluno.id}`);
+        console.log(`Nome: ${aluno.nome}`);
+        console.log(`Turma: ${aluno.turma}`);
+        return aluno;
+      })
+      .catch((erro) => {
+        console.error(`Erro: ${erro.message}`);
+        return null;
+      });
+  }
+
   async executar() {
     let sair = false;
 
@@ -132,6 +151,7 @@ class AplicacaoTerminal {
       console.log("2 - analisar turma");
       console.log("3 - cadastrar aluno");
       console.log("4 - relatório analítico");
+      console.log("5 - buscar aluno por ID");
       console.log("0 - sair");
       const opcao = await this.rl.question("Escolha uma opção: ");
 
@@ -144,6 +164,8 @@ class AplicacaoTerminal {
         await this.cadastrarAluno();
       } else if (opcao === "4") {
         this.mostrarAnalitica();
+      } else if (opcao === "5") {
+        await this.consultarAluno();
       } else if (opcao === "0") {
         sair = true;
       } else {

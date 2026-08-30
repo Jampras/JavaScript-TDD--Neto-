@@ -74,4 +74,4 @@ class SistemaNotas {
   }
 }
 
-export default SistemaNotas;
+export default SistemaNotas;
